@@ -1,0 +1,22 @@
+# 02-security.yaml
+because: "There are no securitySchemes; every operation instead carries a hand-written raw Authorization header parameter, which generators emit as an ordinary string argument."
+actions:
+  - because: "Bearer JWT from /api/v2/access_token, valid one hour."
+    op: set
+    target: "/components/securitySchemes"
+    expect: absent
+    value: {"BearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT", "description": "JWT from POST /api/v2/access_token. Valid 1 hour; no refresh flow."}}
+  - because: "Applies to every operation unless overridden."
+    op: set
+    target: "/security"
+    expect: absent
+    value: [{"BearerAuth": []}]
+  - because: "The token endpoint is the one public operation."
+    op: set
+    target: "/paths/~1api~1v2~1access_token/post/security"
+    expect: absent
+    value: []
+  - because: "Superseded by the scheme above; left in place it becomes a bogus parameter on every method."
+    op: removeParameter
+    count: 326
+    match: {"name": "Authorization", "in": "header"}

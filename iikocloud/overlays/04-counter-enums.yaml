@@ -1,0 +1,13 @@
+# 04-counter-enums.yaml
+because: "CounterMetric and CounterPeriod are declared integer enums but the live API exchanges strings."
+actions:
+  - because: "spec declares this metric as an int32 enum; the live API sends and accepts strings (Iikocloud-py-sdk, verified against the live API). Both readings are recorded: the integer members are dropped rather than renamed to invented strings, because no document names them."
+    op: set
+    target: "/components/schemas/iikoNet.Common.Enums.CounterMetric"
+    expect: e33125de6ab45a918f6fa2be15e94f9997376b1daec17bd2413d8df7874c42d3
+    value: {"title": " ", "type": "string", "description": "Loyalty counter metric. Upstream declares enum [0, 1, 2, 3] as integer; the live API uses string members whose names are not documented anywhere."}
+  - because: "spec declares this period as an int32 enum; the live API sends and accepts strings (Iikocloud-py-sdk, verified against the live API). Both readings are recorded: the integer members are dropped rather than renamed to invented strings, because no document names them."
+    op: set
+    target: "/components/schemas/iikoNet.Common.Enums.CounterPeriod"
+    expect: f1ab5ad70693d3cca6a2cdb4511deb5a5fde59a08637bb407af4fd6fa44d33da
+    value: {"title": " ", "type": "string", "description": "Loyalty counter period. Upstream declares enum [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as integer; the live API uses string members whose names are not documented anywhere."}

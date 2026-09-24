@@ -1,0 +1,50 @@
+# Linters for iiko-mcp. The selection is deliberately small: each one here has
+# caught a real class of bug in this codebase's problem domain, and a noisy
+# linter that gets blanket-disabled protects nothing.
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck   # an ignored error here means a silently unposted document
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - gosec      # two opt-in exceptions are annotated at their call sites
+    - gocritic
+    - revive
+
+  settings:
+    errcheck:
+      # Writes to an in-memory builder and to a discarded HTTP body cannot fail
+      # in a way a caller can act on.
+      exclude-functions:
+        - (*strings.Builder).WriteString
+        - (*strings.Builder).Write
+        - fmt.Fprintf
+    revive:
+      rules:
+        - name: exported
+          disabled: true   # godoc comments are reviewed by humans, not enforced here
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - style
+      disabled-checks:
+        - ifElseChain    # the date/status switches read better flat
+        - singleCaseSwitch
+
+  exclusions:
+    rules:
+      # Test files legitimately ignore write errors on stub responses and use
+      # long literal fixtures.
+      - path: _test\.go
+        linters:
+          - errcheck
+          - gosec
+          - gocritic
+
+formatters:
+  enable:
+    - gofmt

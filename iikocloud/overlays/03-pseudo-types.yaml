@@ -1,0 +1,138 @@
+# 03-pseudo-types.yaml
+because: "27 properties declare a .NET or prose type name where OpenAPI requires one of its seven types."
+actions:
+  - because: "upstream declares type 'bool', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/AllergenGroupDto/properties/isDeleted"
+    expect: 4ed24586cb34087dc30d2730e110cb070baca2b6dd829f7729b3a31d9173021e
+    value: {"type": "boolean"}
+  - because: "upstream declares type 'uuid', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ComboCategoryDto/properties/id"
+    expect: 6ecdfb0a32e77d984355e99708729465f1a43cb3e9e75bda03980eef857f6cb2
+    value: {"type": "string", "format": "uuid"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ComboDto/properties/price"
+    expect: db3299b79f9edb529d91df9afae661d5d7b97856a57fec16709a0b5d83e4fef5
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type 'enum', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ComboDto/properties/priceStrategy"
+    expect: 3e6094af946fe3d2c9d165acb2cd253c3498afb25cae4a24c4fa2c03e311cf13
+    value: {"type": "string", "enum": ["BY_COMPONENT", "FIXED", "CALCULATE"]}
+  - because: "upstream declares type 'uuid', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ComboGroupDto/properties/id"
+    expect: 38b0563a89a8dd18e671c96478df9ea563f9c02b4e8f0b480339f0dffed974ed
+    value: {"type": "string", "format": "uuid"}
+  - because: "upstream declares type 'bool', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuItem/properties/canBeDivided"
+    expect: 4ed24586cb34087dc30d2730e110cb070baca2b6dd829f7729b3a31d9173021e
+    value: {"type": "boolean"}
+  - because: "upstream declares type 'bool', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuItem2/properties/splittable"
+    expect: 58c4edfb6b4510b75f2f02a3aab499ee7b806d5fe9e574872a76242744f74be4
+    value: {"type": "boolean"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuItemSize/properties/portionWeightGrams"
+    expect: 2038022605b159f5427b9456d2550390d9ceeccbbc24872076532cf05201ae3f
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuItemSize2/properties/weight"
+    expect: 5e363d7a183b78fc152b1297b680b1c22bfd6d6e3164dbe295ca9c1becb5a37d
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type 'bool', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuModifierGroup/properties/canBeDivided"
+    expect: 4ed24586cb34087dc30d2730e110cb070baca2b6dd829f7729b3a31d9173021e
+    value: {"type": "boolean"}
+  - because: "upstream declares type 'bool', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuModifierGroup2/properties/splittable"
+    expect: 58c4edfb6b4510b75f2f02a3aab499ee7b806d5fe9e574872a76242744f74be4
+    value: {"type": "boolean"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuModifierItem/properties/portionWeightGrams"
+    expect: 3e5d42527f8449ca9eca3b76dad0ae7b4c80ca38ed0a6a245cd2fcb774ac7700
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuModifierItem2/properties/weight"
+    expect: 5e363d7a183b78fc152b1297b680b1c22bfd6d6e3164dbe295ca9c1becb5a37d
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type 'float', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ExternalMenuPriceByDepartmentsDto/properties/price"
+    expect: 6be2bd22d0249139b28d5c6dea9978e53159cf8d48622b59759c177fe9f32661
+    value: {"type": "number", "format": "double"}
+  - because: "upstream declares type \"constant string 'DeliveryOrderError'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.DeliveryOrderErrorWebHookEventInfo/properties/eventType"
+    expect: 3b18199afbf4c20bc2a38cd8c5d7e60801babb980dd2d4f6beb90f1d74715f10
+    value: {"type": "string", "enum": ["DeliveryOrderError"]}
+  - because: "upstream declares type \"constant string 'DeliveryOrderUpdate'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.DeliveryOrderUpdateWebHookEventInfo/properties/eventType"
+    expect: 772c838a63484b0e247fb0a8edaba784d2b6acf2a3bd75e84345ad4425a5abb1
+    value: {"type": "string", "enum": ["DeliveryOrderUpdate"]}
+  - because: "upstream declares type \"constant string 'PersonalShift'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.PersonalShiftWebHookEventInfo/properties/eventType"
+    expect: c102d2ec672d3200e3476922df2114eb36d0799c739c2aa47dd8674f1e55712b
+    value: {"type": "string", "enum": ["PersonalShift"]}
+  - because: "upstream declares type \"constant string 'ReserveError'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.ReserveErrorWebHookEventInfo/properties/eventType"
+    expect: 5d81084a450fa5a917de982ee23187cd2bf588e85662777fe3b173785a575de8
+    value: {"type": "string", "enum": ["ReserveError"]}
+  - because: "upstream declares type \"constant string 'ReserveUpdate'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.ReserveUpdateWebHookEventInfo/properties/eventType"
+    expect: b0540b1623b5d006e05c861f4f8cde4586e8e436700ea12f98d8b738b643b0c4
+    value: {"type": "string", "enum": ["ReserveUpdate"]}
+  - because: "upstream declares type \"constant string 'StopListUpdate'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.StopListUpdateWebHookEventInfo/properties/eventType"
+    expect: 1b53cdcd84799c113ea004b6ff4dda9f0e3d5608a8d7e7ceeb001a500d35b4cf
+    value: {"type": "string", "enum": ["StopListUpdate"]}
+  - because: "upstream declares type \"constant string 'TableOrderError'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.TableOrderErrorWebHookEventInfo/properties/eventType"
+    expect: 096ec2633ea47025b2766df6d62c08b11a35a9203d4273c6a1c353d541f0e768
+    value: {"type": "string", "enum": ["TableOrderError"]}
+  - because: "upstream declares type \"constant string 'TableOrderUpdate'\", which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/iikoTransport.PublicApi.Contracts.WebHooks.TableOrderUpdateWebHookEventInfo/properties/eventType"
+    expect: f50512e8fe83cee6e400c2b2f9d29805b83c8b38d3b1a7ca8d2f730256418543
+    value: {"type": "string", "enum": ["TableOrderUpdate"]}
+  - because: "upstream declares type 'int', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ModifierRestrictionsDto/properties/byDefault"
+    expect: 944e6f329efab88cb6647d705421c5bec0c9a1c0bbd8e67023b1209b63f40c9a
+    value: {"type": "integer", "format": "int32"}
+  - because: "upstream declares type 'int', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/ModifierRestrictionsDto2/properties/defaultQuantity"
+    expect: 9068c6ed3c81681df7d1aae9e3aeb4f7d9cd39a3e69211b63d78a8c08dcc7a49
+    value: {"type": "integer", "format": "int32"}
+  - because: "upstream declares type 'Array of strings <uuid>', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/RetrieveExternalMenuRequestDto/properties/organizationIds"
+    expect: 38e8b33613c8a765808558175ae123ea8fec88366bf6d3728bfbdbdc946d19c4
+    value: {"type": "array", "items": {"type": "string", "format": "uuid"}}
+  - because: "upstream declares type 'integer <int32>', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/RetrieveExternalMenuRequestDto/properties/version"
+    expect: 59ca1ee4c6d0e40fbcfcd03596e1ef8a828eb66c5628958b9556b3eef3af31b9
+    value: {"type": "integer", "format": "int32"}
+  - because: "upstream declares type 'integer <int64>', which is not an OpenAPI type"
+    op: merge
+    target: "/components/schemas/RetrieveExternalMenuRequestDto/properties/startRevision"
+    expect: de861d10ccb520a7caba4e66c1417509dc528bd4df95d1b8070cdb25a173155b
+    value: {"type": "integer", "format": "int64"}

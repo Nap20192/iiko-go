@@ -1,0 +1,53 @@
+# 05-clr-names.yaml
+because: "10 component keys are raw CLR generic type names carrying assembly version and PublicKeyToken."
+actions:
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Address.City, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 8eddda61d8fbfd05b83d65447ce642ac878bd6ab85d6ac8bc3e8b78c31914bcd
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfCity"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Address.Region, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 0b526eaefebbd699544dff806b00c728969f3eebe011b64755f796af04783d88
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfRegion"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Discounts.DiscountCardTypeInfo, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 17f612652180b149b29f0626d6f488e550332f79ab25477c9f0c399d0c2a7cbe
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfDiscountCardTypeInfo"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Employees.ActiveCourierLocation, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 9b5f784d2eb7e435d56cae9202f0a0b295954937fe96c36f6d8dc42cee30675f
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfActiveCourierLocation"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Employees.CourierLocations, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: ceeb2a04630c88dbaa15c692a1b9d79c8cfbd05f3a434888429f5065675a5557
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfCourierLocations"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Employees.Employee, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: e94c3bc7bce51f9a51d9bdfb3e17aaabddfc7aa350951eb0cd8d6c98132162d8
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfEmployee"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Employees.EmployeeWithCheckedRole, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: e0e364bc1dbc295d2848c2dd70d76ae6786438fec4b8337743ceee11fb6c48c3
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfEmployeeWithCheckedRole"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.OrderTypes.OrderType, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 516180dcf52e6ab9c87a731cb96bb7546df1b26a7279dd387034ce0a3a1de980
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfOrderType"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.StopLists.TerminalGroupStopList, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 00dfae62e59188006324720d9d83420c98711eb8dd07cbabc649be480a941b18
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfTerminalGroupStopList"
+  - because: "CLR-qualified generic name: backticks, brackets and assembly metadata are not usable as an identifier by any generator"
+    op: renameSchema
+    target: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapper`1[[iikoTransport.PublicApi.Contracts.Terminals.TerminalGroup, iikoTransport.PublicApi.Contracts, Version=9.8.6.1, Culture=neutral, PublicKeyToken=null]]"
+    expect: 14973038cca7f3779853f915b62ad1ee4d3d29b4fad2e401b98ee64e39838418
+    value: "iikoTransport.PublicApi.Contracts.Common.RmsItemsResponseWrapperOfTerminalGroup"

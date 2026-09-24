@@ -1,0 +1,8 @@
+# 01-servers.yaml
+because: "The spec root declares no servers block, so no generator or doc tool knows the host."
+actions:
+  - because: "Host confirmed live: it is the only origin that answers /api-docs/docs."
+    op: set
+    target: "/servers"
+    expect: absent
+    value: [{"url": "https://api-ru.iiko.services", "description": "iikoCloud (RU)"}]
