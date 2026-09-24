@@ -1,4 +1,4 @@
-.PHONY: test cover race lint gen gen-server gen-cloud integration tidy
+.PHONY: test cover race lint gen gen-server gen-cloud integration tidy invariants
 
 test:
 	go test ./...
@@ -30,3 +30,6 @@ integration:
 tidy:
 	go mod tidy
 	gofmt -s -w .
+
+invariants:
+	./scripts/invariants.sh
