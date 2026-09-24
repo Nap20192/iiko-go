@@ -32,9 +32,9 @@ srv := iikoserver.New(iikoserver.Config{
 })
 defer srv.Close(ctx) // releases the licence seat — see below
 
-deps, err := srv.Corporation.Departments(ctx)
-charts, err := srv.Recipes.Prepared(ctx, day, productID, "")
-shifts, err := srv.Cashshifts.List(ctx, from, to, cashshifts.StatusAny)
+deps, err := srv.Corporation.ListEntities(ctx, corporation.KindDepartments, false)
+card, err := srv.Recipes.ChartPrepared(ctx, day, productID, "")
+shifts, err := srv.Cashshifts.ListCashShifts(ctx, from, to, cashshifts.ShiftAny, "", "")
 ```
 
 Domains hang off the facade: `Corporation`, `Nomenclature`, `Recipes`, `Reports`, `Documents`, `Cashshifts`, `Staff`, `Suppliers`, `Pricing`, `Events`, `EDI`.
@@ -56,10 +56,12 @@ cloud, err := iikocloud.New(iikocloud.Config{
     ClientSecret: os.Getenv("IIKO_CLIENT_SECRET"),
 })
 
-orgs, err := cloud.Organizations.GetOrganizations(ctx, req)
+cities, err := cloud.Organizations.GetCities(ctx, gen.CitiesRequest{OrganizationIDs: ids})
 ```
 
 The token refreshes itself 5 minutes before expiry and retries once on a 401. A 429 surfaces as `*rest.RateLimitError` with `RetryAfter` and is **not** retried automatically — iiko's docs treat repeated identical requests as grounds for blocking the API login.
+
+The v1 report endpoints have no documented response schema, so `reports.RawReport` hands back the XML document rather than guessing at a shape.
 
 ## Generated code
 

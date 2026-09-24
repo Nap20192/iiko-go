@@ -13,19 +13,19 @@ import (
 // The v1 report family is XML and dates it DD.MM.YYYY, unlike everything under
 // /v2/. rest.ReportV1 is that layout; there is no global date format here.
 
-// rawReport is the response shape of the v1 reports: iiko returns a report-
+// RawReport is the response shape of the v1 reports: iiko returns a report-
 // specific XML tree, and the useful part is different per report, so the raw
 // document is handed back rather than guessed at.
-type rawReport struct {
+type RawReport struct {
 	XML string
 }
 
-func (s *Service) getV1(ctx context.Context, path string, q url.Values) (*rawReport, error) {
+func (s *Service) getV1(ctx context.Context, path string, q url.Values) (*RawReport, error) {
 	data, err := s.rest.Do(ctx, "GET", path, q, nil, "")
 	if err != nil {
 		return nil, err
 	}
-	return &rawReport{XML: string(data)}, nil
+	return &RawReport{XML: string(data)}, nil
 }
 
 func v1Window(from, to time.Time) url.Values {
@@ -36,7 +36,7 @@ func v1Window(from, to time.Time) url.Values {
 }
 
 // SalesReport is the v1 revenue report.
-func (s *Service) SalesReport(ctx context.Context, from, to time.Time, dishDetails, allRevenue bool) (*rawReport, error) {
+func (s *Service) SalesReport(ctx context.Context, from, to time.Time, dishDetails, allRevenue bool) (*RawReport, error) {
 	q := v1Window(from, to)
 	q.Set("dishDetails", rest.BoolStr(dishDetails))
 	q.Set("allRevenue", rest.BoolStr(allRevenue))
@@ -45,7 +45,7 @@ func (s *Service) SalesReport(ctx context.Context, from, to time.Time, dishDetai
 
 // ProductExpense reports consumption per product. hourFrom and hourTo default to
 // -1, meaning the whole day; they are sent explicitly.
-func (s *Service) ProductExpense(ctx context.Context, from, to time.Time, hourFrom, hourTo int) (*rawReport, error) {
+func (s *Service) ProductExpense(ctx context.Context, from, to time.Time, hourFrom, hourTo int) (*RawReport, error) {
 	q := v1Window(from, to)
 	q.Set("hourFrom", fmt.Sprint(hourFrom))
 	q.Set("hourTo", fmt.Sprint(hourTo))
@@ -53,7 +53,7 @@ func (s *Service) ProductExpense(ctx context.Context, from, to time.Time, hourFr
 }
 
 // MonthlyIncomePlan reports plan against actual.
-func (s *Service) MonthlyIncomePlan(ctx context.Context, from, to time.Time) (*rawReport, error) {
+func (s *Service) MonthlyIncomePlan(ctx context.Context, from, to time.Time) (*RawReport, error) {
 	return s.getV1(ctx, EndpointMonthlyIncomePlan, v1Window(from, to))
 }
 
@@ -61,7 +61,7 @@ func (s *Service) MonthlyIncomePlan(ctx context.Context, from, to time.Time) (*r
 //
 // productArticle takes priority over product when both are set, so passing both
 // hides which one selected the rows; this refuses instead.
-func (s *Service) IngredientEntry(ctx context.Context, from, to time.Time, productID, productArticle string, includeSubtree bool) (*rawReport, error) {
+func (s *Service) IngredientEntry(ctx context.Context, from, to time.Time, productID, productArticle string, includeSubtree bool) (*RawReport, error) {
 	if productID != "" && productArticle != "" {
 		return nil, fmt.Errorf("pass product or productArticle, not both: productArticle takes priority and the other would be silently ignored")
 	}
@@ -93,7 +93,7 @@ type StoreOperationsFilter struct {
 }
 
 // StoreOperations reports stock movements for a period.
-func (s *Service) StoreOperations(ctx context.Context, f StoreOperationsFilter) (*rawReport, error) {
+func (s *Service) StoreOperations(ctx context.Context, f StoreOperationsFilter) (*RawReport, error) {
 	if f.PresetID != "" && (len(f.Stores) > 0 || len(f.DocumentTypes) > 0 || f.ProductDetalization || f.ShowCostCorrections) {
 		return nil, fmt.Errorf("preset_id overrides every filter except the dates; send the preset alone or drop it")
 	}
@@ -119,7 +119,7 @@ func (s *Service) StoreOperations(ctx context.Context, f StoreOperationsFilter) 
 }
 
 // StoreReportPresets lists the saved store-report configurations.
-func (s *Service) StoreReportPresets(ctx context.Context) (*rawReport, error) {
+func (s *Service) StoreReportPresets(ctx context.Context) (*RawReport, error) {
 	return s.getV1(ctx, EndpointStoreReportPresets, nil)
 }
 
@@ -135,7 +135,7 @@ type OlapV1Request struct {
 }
 
 // OlapV1 runs the legacy OLAP report.
-func (s *Service) OlapV1(ctx context.Context, req OlapV1Request) (*rawReport, error) {
+func (s *Service) OlapV1(ctx context.Context, req OlapV1Request) (*RawReport, error) {
 	if strings.TrimSpace(req.Report) == "" {
 		return nil, fmt.Errorf("report is required: SALES, TRANSACTIONS, DELIVERIES or STOCK")
 	}
@@ -203,7 +203,7 @@ type DeliveryFilter struct {
 //
 // These answer XML even though the docs show JSON samples, so the raw document
 // is returned rather than a decoded shape.
-func (s *Service) DeliveryReport(ctx context.Context, kind DeliveryKind, f DeliveryFilter) (*rawReport, error) {
+func (s *Service) DeliveryReport(ctx context.Context, kind DeliveryKind, f DeliveryFilter) (*RawReport, error) {
 	endpoint := deliveryEndpoint(kind)
 	if endpoint == "" {
 		return nil, fmt.Errorf("unknown delivery report %q; valid: consolidated, couriers, orderCycle, halfHourDetailed, regions, loyalty", kind)
