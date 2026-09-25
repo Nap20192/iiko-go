@@ -6,6 +6,7 @@ package iikoserver
 
 import (
 	"context"
+	"net/url"
 
 	"github.com/Nap20192/iiko-go/iikoserver/cashshifts"
 	"github.com/Nap20192/iiko-go/iikoserver/corporation"
@@ -68,6 +69,14 @@ func (c *Client) Close(ctx context.Context) error { return c.rest.Close(ctx) }
 
 // AllowWrite reports whether this process may touch production data.
 func (c *Client) AllowWrite() bool { return c.rest.AllowWrite() }
+
+// Raw performs one arbitrary read on the shared session. It exists for callers
+// that allowlist paths themselves — an MCP escape hatch, a one-off export — and
+// it deliberately reuses this Client's token: a second client is a second
+// licence seat.
+func (c *Client) Raw(ctx context.Context, method, path string, q url.Values) ([]byte, error) {
+	return c.rest.Do(ctx, method, path, q, nil, "")
+}
 
 // LicenceInfo reports free slots for a licence module.
 func (c *Client) LicenceInfo(ctx context.Context, moduleID string) (string, error) {

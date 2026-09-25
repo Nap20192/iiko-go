@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -72,5 +73,45 @@ func TestAllowWriteReflectsConfig(t *testing.T) {
 	}
 	if !New(Config{AllowWrite: true}).AllowWrite() {
 		t.Error("AllowWrite must reflect config through the facade")
+	}
+}
+
+// Raw is the escape hatch's transport. It must share the one session — a second
+// client would take a second licence seat — and send the path verbatim.
+func TestRawSharesTheSessionAndSendsThePathVerbatim(t *testing.T) {
+	var paths []string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		paths = append(paths, r.URL.Path)
+		if strings.HasSuffix(r.URL.Path, "/api/auth") {
+			_, _ = w.Write([]byte("tok"))
+			return
+		}
+		_, _ = w.Write([]byte("<roles/>"))
+	}))
+	defer srv.Close()
+
+	c := New(Config{BaseURL: srv.URL + "/resto", Login: "u", Password: "p"})
+	body, err := c.Raw(context.Background(), http.MethodGet, "/api/employees/roles", url.Values{"revisionFrom": {"-1"}})
+	if err != nil {
+		t.Fatalf("raw: %v", err)
+	}
+	if string(body) != "<roles/>" {
+		t.Errorf("body = %q", body)
+	}
+	if got := paths[len(paths)-1]; got != "/resto/api/employees/roles" {
+		t.Errorf("path = %q", got)
+	}
+	// A second call must not authenticate again: one session, one seat.
+	if _, err := c.Raw(context.Background(), http.MethodGet, "/api/employees/roles", nil); err != nil {
+		t.Fatal(err)
+	}
+	auths := 0
+	for _, p := range paths {
+		if strings.HasSuffix(p, "/api/auth") {
+			auths++
+		}
+	}
+	if auths != 1 {
+		t.Errorf("authenticated %d times; a session is a licence seat", auths)
 	}
 }
