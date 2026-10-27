@@ -13,14 +13,11 @@ The two share nothing on purpose: opposite auth, formats, session models and rat
 
 ## Install
 
-The repository is private, so tell Go not to use the public proxy:
+Install the public module:
 
 ```bash
-go env -w GOPRIVATE=github.com/Nap20192/*
 go get github.com/Nap20192/iiko-go@latest
 ```
-
-`git` must be able to reach the repo — SSH key or `gh auth setup-git`.
 
 ## iikoServer
 
